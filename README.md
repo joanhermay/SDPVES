@@ -30,6 +30,9 @@
 * Cree un entorno virtual llamado `sdpves` con `mkvirtualenv sdpves`.
 
 
+* Si el entorno existe, bórrela y créela de nuevo.
+
+
 * A partir de aquí estará dentro automáticamente en su entorno virtual.
 
 
