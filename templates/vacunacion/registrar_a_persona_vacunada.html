@@ -1,0 +1,160 @@
+{% extends 'vacunacion/base.html' %}
+{% load static %}
+
+{% block head %}
+    <script src="{% static 'cleave/cleave.min.js' %}"></script>
+    <script src="{% static 'jquery-3.6.0.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center">REGISTRO DE NUEVA PERSONA VACUNADA</h1>
+    <br>
+    <br>
+    <div class="container">
+        <br>
+        <form class="needs-validation" id="formulario" novalidate>
+            <div class="row">
+                <div class="col">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" placeholder="Nombres" pattern="[A-Za-z]{1-100}"
+                           required>
+                    <div class="invalid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                           pattern="[A-Za-z]{1-100}" required>
+                    <div class="valid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                    <div class="invalid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="departamentos">Departamento</label>
+                    <select class="form-control" id="departamentos" required>
+                        {% for departamento in departamentos %}
+                            <option>{{ departamento.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un departamento.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="municipios">Municipio</label>
+                    <select class="form-control" id="municipios">
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un municipio.
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="dui">DUI</label>
+                    <input type="text" class="form-control" id="dui" placeholder="12345678-9"
+                           pattern="[0-9]{8}-[0-9]{1}"
+                           required>
+                    <div class="invalid-feedback">
+                        El campo no puede contener letras o estar vacío.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="fecha-nacimiento"
+                           minlength="1900-01-01" maxlength="2099-12-31" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required>
+                    <div class="invalid-feedback">
+                        La fecha es invalida o el campo está vacío.
+                    </div>
+                </div>
+            </div>
+        <br>
+        <br>
+        <br>
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-secondary" id="cancelar">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="ingresar">Ingresar</button>
+            </div>
+        </form>
+
+
+        <script>
+            let lista_departamentos = document.getElementById('departamentos')
+            let lista_municipios = document.getElementById("municipios");
+            let names_dep = {
+                {% for departamento in departamentos%}
+                    '{{ departamento.nombre }}':
+                        [
+                            {% for municipio in municipios %}
+                                {% if departamento.nombre == municipio.codigo_departamento.nombre %}
+                                    '{{ municipio.nombre }}',
+                                {% endif %}
+                            {% endfor %}
+                        ],
+                {% endfor %}
+            }
+            let depa_seleccionado = lista_departamentos.options[lista_departamentos.selectedIndex].text;
+            for (let depa in names_dep) {
+                if (depa === depa_seleccionado) {
+                    let valores = names_dep[depa];
+                    for (let i = 0; i < valores.length; i++) {
+                        let option = document.createElement('option');
+                        option.value = option.text = valores[i];
+                        lista_municipios.append(option);
+                    }
+                }
+            }
+
+            lista_departamentos.addEventListener('change',
+                function () {
+                    let depa_seleccionado = this.options[lista_departamentos.selectedIndex].text;
+                    lista_municipios.innerText = null;
+                    for (let depa in names_dep) {
+                        if (depa === depa_seleccionado) {
+                            let valores = names_dep[depa];
+                            for (let i = 0; i < valores.length; i++) {
+                                let option = document.createElement('option');
+                                option.value = option.text = valores[i];
+                                lista_municipios.append(option);
+                            }
+                        }
+                    }
+                }
+            );
+
+
+            // Formateador para el dui
+            let cleave = new Cleave(document.getElementById("dui"), {
+                delimiters: ['-'],
+                blocks: [8, 1],
+                uppercase: true
+            });
+
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                let forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        </script>
+    </div>
+{% endblock %}

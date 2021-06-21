@@ -5,4 +5,4 @@ from .models import *
 
 admin.site.register(Departamento),
 admin.site.register(Municipio),
-admin.site.register(Persona)
+#admin.site.register(Persona)

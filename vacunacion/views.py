@@ -5,24 +5,8 @@ from vacunacion.models import Departamento, Municipio
 
 
 def principal(request):
-    municipios = Municipio.objects.all()
-    codigos_departamentos = Departamento.objects.all()
-
-    cantidades = []
-    nombres_depas = []
-
-    for depa in codigos_departamentos:
-        cantidad = 0
-        nombres_depas.append(depa.nombre)
-        for muni in municipios:
-            cd = depa.codigo_departamento
-            cm = muni.codigo_departamento.codigo_departamento
-            if cd == cm:
-                cantidad += 1
-        cantidades.append(cantidad)
-
-    context = {'cantidades': cantidades,
-               'nombres_depas': nombres_depas}
+    context = {'departamentos': Departamento.objects.all(),
+               'municipios': Municipio.objects.all()}
     return render(request, 'vacunacion/principal.html', context)
 
 
@@ -42,3 +26,11 @@ def mostrar_departamentos(request):
         'municipios': municipios,
     }
     return render(request, 'vacunacion/mostrar_departamentos.html', context)
+
+
+def registrar_a_persona_vacunada(request):
+    context = {
+        'departamentos': Departamento.objects.all(),
+        'municipios': Municipio.objects.all()
+    }
+    return render(request, 'vacunacion/registrar_a_persona_vacunada.html', context)

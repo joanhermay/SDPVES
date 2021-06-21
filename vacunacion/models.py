@@ -20,8 +20,10 @@ class Municipio(models.Model):
 
 
 class Persona(models.Model):
-    nombres = models.CharField(max_length=100, null=False, default='--')
-    apellidos = models.CharField(max_length=100, null=False, default='--')
-    departamento_de_nacimiento = models.ForeignKey(Departamento, on_delete=models.CASCADE,
-                                                   to_field='codigo_departamento')
-    municipio_de_nacimiento = models.ForeignKey(Municipio, on_delete=models.CASCADE)
+    id = models.BigAutoField(primary_key=True)
+    departamento_de_nacimiento = models.ForeignKey(Departamento, models.DO_NOTHING)
+    municipio_de_nacimiento = models.ForeignKey(Municipio, models.DO_NOTHING)
+    apellidos = models.CharField(max_length=100, null=False, blank=False)
+    dui = models.CharField(max_length=10, null=False, blank=False)
+    fecha_de_nacimiento = models.DateField(blank=False, null=False)
+    nombres = models.CharField(max_length=100, null=False, blank=False)

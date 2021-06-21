@@ -1,105 +1,100 @@
 {% extends 'vacunacion/base.html' %}
-<!doctype html>
-<html lang="en">
-<head>
-    {% block head %}
-        <title>SDPVES</title>
-    {% endblock %}
-</head>
-<body>
-{% block content %}
-    <div>
-        <figure class="highcharts-figure bt" style="align-self: auto">
-            <div id="container"></div>
+{% load static %}
 
+{% block head %}
+    <title>SDPVES</title>
+    <script src="{% static 'higthcharts-9.1.2/highcharts.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/modules/data.js' %} "></script>
+    <script src="{% static 'higthcharts-9.1.2/modules/drilldown.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/modules/exporting.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/modules/export-data.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/modules/accessibility.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <figure class="highcharts-figure">
+            <div id="container"></div>
         </figure>
     </div>
     <script type="application/javascript">
+        // Create the chart
         Highcharts.chart('container', {
-
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: 'Cantidad de vacunados en El Salvador',
-                style: {
-                    fontSize: "40px",
-                }
+                text: 'Cantidad de personas vacunadas - 2021'
             },
             subtitle: {
-                text: 'Fuente: SDPVES',
-                style: {
-                    fontSize: "20px",
+                text: 'Fuente: SDPVES'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
                 }
             },
-
+            xAxis: {
+                type: 'category'
+            },
             yAxis: {
                 title: {
                     text: 'Cantidad de personas vacunadas'
                 }
             },
-
-            xAxis: {
-                categories: [
-                    {% for nombre in nombres_depas %}
-                        '{{ nombre }}',
-                    {% endfor %}
-                ],
-                title: {
-                    text: 'Departamentos'
-                }
-            },
-
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
                 enabled: false
             },
-
             plotOptions: {
                 series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                },
-                line: {
+                    borderWidth: 0,
                     dataLabels: {
-                        enabled: true
+                        enabled: true,
+                        format: '{point.y:f}'
                     }
                 }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> en total<br/>'
             },
 
             series: [
                 {
-                    name: '2021',
-                    data: {{ cantidades }}
-                }
+                    colorByPoint: true,
+                    data: [
+                        {% for depa in departamentos %}
+                            {
+                                name: "{{ depa.nombre }}",
+                                drilldown: "{{ depa.nombre }}", // Nombre que recibe la subcolumna para identificar esta
+                                                                // en el javascript de abajo
+                                y: Math.floor(Math.random() * 101), // Aquí irá la suma total de personas en el departamento
+                            },
+                        {% endfor %}
+                    ],
+                },
             ],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
+            drilldown: {
+                series: [
+                    {% for depa in departamentos %}
+                        {
+                            name: "{{depa.nombre}}",
+                            id: "{{depa.nombre}}",// Nombre de sub grafica igual al nombre primera columna
+                            data: [
+                                {% for muni in municipios %}
+                                    {% if muni.codigo_departamento.codigo_departamento == depa.codigo_departamento %}
+                                        [
+                                            "{{muni.nombre}}", // Nombre municipio
+                                            Math.floor(Math.random() * 101) // Cantidad personas vacunadas
+                                        ],
+                                    {% endif %}
+                                {% endfor %}
+                            ]
+                        },
+                    {% endfor %}
+                ]
             }
-
         });
     </script>
 {% endblock %}
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
