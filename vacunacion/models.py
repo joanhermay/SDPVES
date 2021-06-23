@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -24,6 +25,6 @@ class Persona(models.Model):
     departamento_de_nacimiento = models.ForeignKey(Departamento, models.DO_NOTHING)
     municipio_de_nacimiento = models.ForeignKey(Municipio, models.DO_NOTHING)
     apellidos = models.CharField(max_length=100, null=False, blank=False)
-    dui = models.CharField(max_length=10, null=False, blank=False)
+    dui = models.CharField(max_length=10, null=False, blank=False, unique=True)
     fecha_de_nacimiento = models.DateField(blank=False, null=False)
     nombres = models.CharField(max_length=100, null=False, blank=False)

@@ -35,8 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'vacunacion.apps.VacunacionConfig',
+    'crispy_forms',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,7 +122,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = Path(Path.home(), 'static-files-SDPVES', 'static').__str__()
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    'static'
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

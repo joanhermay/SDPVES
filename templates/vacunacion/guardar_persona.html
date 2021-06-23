@@ -1,22 +1,22 @@
 {% extends 'vacunacion/base.html' %}
-{% load static %}
 
+{% load static %}
 {% block head %}
     <script src="{% static 'cleave/cleave.min.js' %}"></script>
     <script src="{% static 'jquery-3.6.0.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center">REGISTRO DE NUEVA PERSONA VACUNADA</h1>
-    <br>
-    <br>
+    <h1 style="text-align: center">REGISTRAR A NUEVA PERSONA VACUNADA</h1>
     <div class="container">
         <br>
-        <form class="needs-validation" id="formulario" novalidate>
+        <form action="" class="needs-validation" id="formulario" novalidate method="post">
+            {% csrf_token %}
             <div class="row">
                 <div class="col">
                     <label for="nombres">Nombres</label>
-                    <input type="text" class="form-control" id="nombres" placeholder="Nombres" pattern="[A-Za-z]{1-100}"
+                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres"
+                           pattern="[A-Za-z]{1-100}"
                            required>
                     <div class="invalid-feedback">
                         El campo está vacío o supera los 100 caracteres.
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col">
                     <label for="apellidos">Apellidos</label>
-                    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos"
                            pattern="[A-Za-z]{1-100}" required>
                     <div class="valid-feedback">
                         El campo está vacío o supera los 100 caracteres.
@@ -38,9 +38,9 @@
             <div class="row">
                 <div class="col">
                     <label for="departamentos">Departamento</label>
-                    <select class="form-control" id="departamentos" required>
+                    <select class="form-control" id="departamentos" name="departamento" required>
                         {% for departamento in departamentos %}
-                            <option>{{ departamento.nombre }}</option>
+                            <option value="{{ departamento.id }}">{{ departamento.nombre }}</option>
                         {% endfor %}
                     </select>
                     <div class="invalid-feedback">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col">
                     <label for="municipios">Municipio</label>
-                    <select class="form-control" id="municipios">
+                    <select class="form-control" id="municipios" name="municipio">
                     </select>
                     <div class="invalid-feedback">
                         Por favor seleccione un municipio.
@@ -58,7 +58,7 @@
 
                 <div class="col">
                     <label for="dui">DUI</label>
-                    <input type="text" class="form-control" id="dui" placeholder="12345678-9"
+                    <input type="text" class="form-control" id="dui" name="dui" placeholder="12345678-9"
                            pattern="[0-9]{8}-[0-9]{1}"
                            required>
                     <div class="invalid-feedback">
@@ -68,49 +68,82 @@
                 <div class="col-md-3 mb-3">
                     <label for="fecha-nacimiento">Fecha de nacimiento</label>
                     <input type="date" class="form-control" id="fecha-nacimiento"
-                           minlength="1900-01-01" maxlength="2099-12-31" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required>
+                           name="fecha-nacimiento"
+                           required>
                     <div class="invalid-feedback">
                         La fecha es invalida o el campo está vacío.
                     </div>
                 </div>
             </div>
-        <br>
-        <br>
-        <br>
+            <br>
+            <br>
             <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-secondary" id="cancelar">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="ingresar">Ingresar</button>
+                <button type="reset" class="btn btn-secondary" id="cancelar" name="limpiar" value="Limpiar">
+                    Limpiar
+                </button>
+
+                <button type="reset" class="btn btn-secondary" id="cancelar" name="volver" value="volver"
+                        onclick="location.href='{% url 'administrar-personas-vacunadas' %}'">
+                    Volver
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="guardar" name="guardar" value="guardar">Guardar
+                </button>
             </div>
+            <br>
+            <br>
+            {% if mensaje %}
+                {% if 'Duplicate' in mensaje %}
+                    <div class="alert alert-danger" role="alert" id="alerta">
+                        Ya hay una persona con DUI: {{ dui_ }},
+                        registrada.
+                    </div>
+                {% else %}
+                    <div class="alert alert-success" role="alert" id="alerta">
+                        {{ mensaje }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
         </form>
-
-
         <script>
             let lista_departamentos = document.getElementById('departamentos')
             let lista_municipios = document.getElementById("municipios");
+
             let names_dep = {
                 {% for departamento in departamentos%}
                     '{{ departamento.nombre }}':
                         [
                             {% for municipio in municipios %}
+
                                 {% if departamento.nombre == municipio.codigo_departamento.nombre %}
-                                    '{{ municipio.nombre }}',
+                                    [
+                                        '{{ municipio.id }}',
+                                        '{{ municipio.nombre }}',
+                                    ],
                                 {% endif %}
+
                             {% endfor %}
                         ],
                 {% endfor %}
             }
+
+            // Relleno previo en primera carga
             let depa_seleccionado = lista_departamentos.options[lista_departamentos.selectedIndex].text;
             for (let depa in names_dep) {
                 if (depa === depa_seleccionado) {
                     let valores = names_dep[depa];
                     for (let i = 0; i < valores.length; i++) {
+                        let municipio = valores[i]
                         let option = document.createElement('option');
-                        option.value = option.text = valores[i];
+                        option.value = municipio[0]
+                        option.text = municipio[1]
                         lista_municipios.append(option);
                     }
                 }
             }
 
+            // Cada que cambia de departamento, se eligen los municipios
             lista_departamentos.addEventListener('change',
                 function () {
                     let depa_seleccionado = this.options[lista_departamentos.selectedIndex].text;
@@ -119,8 +152,10 @@
                         if (depa === depa_seleccionado) {
                             let valores = names_dep[depa];
                             for (let i = 0; i < valores.length; i++) {
+                                let municipio = valores[i]
                                 let option = document.createElement('option');
-                                option.value = option.text = valores[i];
+                                option.value = municipio[0]
+                                option.text = municipio[1]
                                 lista_municipios.append(option);
                             }
                         }
@@ -128,9 +163,8 @@
                 }
             );
 
-
             // Formateador para el dui
-            let cleave = new Cleave(document.getElementById("dui"), {
+            let formateador_dui = new Cleave(document.getElementById("dui"), {
                 delimiters: ['-'],
                 blocks: [8, 1],
                 uppercase: true
@@ -158,3 +192,4 @@
         </script>
     </div>
 {% endblock %}
+

@@ -1,0 +1,207 @@
+{% extends 'vacunacion/base.html' %}
+
+{% load static %}
+{% block head %}
+
+    <script src="{% static 'cleave/cleave.min.js' %}"></script>
+    <script src="{% static 'jquery-3.6.0.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center">MODIFICAR DATOS DE PERSONA VACUNADA</h1>
+    <div class="container">
+        <br>
+        <form action="" class="needs-validation" id="formulario" novalidate method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres"
+                           pattern="[A-Za-z]{1-100}" value="{{ persona.nombres }}"
+                           required>
+                    <div class="invalid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos"
+                           pattern="[A-Za-z]{1-100}" value="{{ persona.apellidos }}" required>
+                    <div class="valid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                    <div class="invalid-feedback">
+                        El campo está vacío o supera los 100 caracteres.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="departamentos">Departamento</label>
+                    <select class="form-control" id="departamentos" name="departamento" required>
+                        {% for departamento in departamentos %}
+                            {% if departamento.id == persona.departamento_de_nacimiento_id %}
+                                <option selected
+                                        value="{{ departamento.id }}">{{ departamento.nombre }}
+                                </option>
+                            {% endif %}
+                            <option value="{{ departamento.id }}">{{ departamento.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un departamento.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="municipios">Municipio</label>
+                    <select class="form-control" id="municipios" name="municipio">
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un municipio.
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="dui">DUI</label>
+                    <input type="text" class="form-control" id="dui" name="dui" placeholder="12345678-9"
+                           pattern="[0-9]{8}-[0-9]{1}" value="{{ persona.dui }}"
+                           disabled
+                           required>
+                    <div class="invalid-feedback">
+                        El campo no puede contener letras o estar vacío.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="fecha-nacimiento"
+                           name="fecha-nacimiento"
+                           required>
+                    <div class="invalid-feedback">
+                        La fecha es invalida o el campo está vacío.
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-12 text-center">
+                <button type="reset" class="btn btn-secondary" id="cancelar" name="limpiar" value="Limpiar">
+                    Limpiar
+                </button>
+
+                <button type="reset" class="btn btn-secondary" id="cancelar" name="volver" value="volver"
+                        onclick="location.href='{% url 'administrar-personas-vacunadas' %}'">
+                    Volver
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="guardar" name="modificar" value="guardar">Guardar cambios
+                </button>
+            </div>
+            <br>
+            <br>
+            {% if mensaje %}
+                {% if 'Duplicate' in mensaje %}
+                    <div class="alert alert-danger" role="alert" id="alerta">
+                        Ya hay una persona con DUI: {{ dui_ }},
+                        registrada.
+                    </div>
+                {% else %}
+                    <div class="alert alert-success" role="alert" id="alerta">
+                        {{ mensaje }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </form>
+        <script>
+            let lista_departamentos = document.getElementById('departamentos')
+            let lista_municipios = document.getElementById("municipios");
+            let names_dep = {
+                {% for departamento in departamentos%}
+                    '{{ departamento.nombre }}':
+                        [
+                            {% for municipio in municipios %}
+
+                                {% if departamento.nombre == municipio.codigo_departamento.nombre %}
+                                    [
+                                        '{{ municipio.id }}',
+                                        '{{ municipio.nombre }}',
+                                    ],
+                                {% endif %}
+                            {% endfor %}
+                        ],
+                {% endfor %}
+            }
+
+            // Relleno previo en primera carga
+            let depa_seleccionado = lista_departamentos.options[lista_departamentos.selectedIndex].text;
+            let muni_persona =
+                '{{ persona.municipio_de_nacimiento }}'
+            for (let depa in names_dep) {
+                if (depa === depa_seleccionado) {
+                    let valores = names_dep[depa];
+
+                    for (let i = 0; i < valores.length; i++) {
+
+                        let municipio = valores[i]
+                        let option = document.createElement('option');
+                        option.value = municipio[0]
+
+                        option.text = municipio[1]
+                        if (muni_persona === municipio[1]) {
+                            option.selected = true
+                        }
+                        lista_municipios.append(option);
+                    }
+                }
+            }
+
+            // Cada que cambia de departamento, se eligen los municipios
+            lista_departamentos.addEventListener('change',
+                function () {
+                    let depa_seleccionado = this.options[lista_departamentos.selectedIndex].text;
+                    lista_municipios.innerText = null;
+                    for (let depa in names_dep) {
+                        if (depa === depa_seleccionado) {
+                            let valores = names_dep[depa];
+                            for (let i = 0; i < valores.length; i++) {
+                                let municipio = valores[i]
+                                let option = document.createElement('option');
+                                option.value = municipio[0]
+                                option.text = municipio[1]
+                                lista_municipios.append(option);
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Formateador para el dui
+            let formateador_dui = new Cleave(document.getElementById("dui"), {
+                delimiters: ['-'],
+                blocks: [8, 1],
+                uppercase: true
+            });
+
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                let forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        </script>
+    </div>
+{% endblock %}
+
