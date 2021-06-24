@@ -116,7 +116,7 @@
                         [
                             {% for municipio in municipios %}
 
-                                {% if departamento.nombre == municipio.codigo_departamento.nombre %}
+                                {% if municipio.departamento_id == departamento.id %}
                                     [
                                         '{{ municipio.id }}',
                                         '{{ municipio.nombre }}',

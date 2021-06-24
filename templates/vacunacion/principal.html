@@ -95,7 +95,7 @@
                             id: "{{depa.nombre}}",// Nombre de sub grafica igual al nombre primera columna
                             data: [
                                 {% for muni in municipios %}
-                                    {% if muni.codigo_departamento.codigo_departamento == depa.codigo_departamento %}
+                                    {% if muni.departamento_id == depa.id %}
                                         [
                                             "{{muni.nombre}}", // Nombre municipio
                                             datos_municipios['{{ muni.nombre }}']

@@ -41,7 +41,7 @@
                     <label for="departamentos">Departamento</label>
                     <select class="form-control" id="departamentos" name="departamento" required>
                         {% for departamento in departamentos %}
-                            {% if departamento.id == persona.departamento_de_nacimiento_id %}
+                            {% if departamento.id == persona.departamento_de_nacimiento.id %}
                                 <option selected
                                         value="{{ departamento.id }}">{{ departamento.nombre }}
                                 </option>
@@ -94,7 +94,8 @@
                     Volver
                 </button>
 
-                <button type="submit" class="btn btn-primary" id="guardar" name="modificar" value="guardar">Guardar cambios
+                <button type="submit" class="btn btn-primary" id="guardar" name="modificar" value="guardar">Guardar
+                    cambios
                 </button>
             </div>
             <br>
@@ -121,7 +122,7 @@
                         [
                             {% for municipio in municipios %}
 
-                                {% if departamento.nombre == municipio.codigo_departamento.nombre %}
+                                {% if municipio.departamento_id == departamento.id %}
                                     [
                                         '{{ municipio.id }}',
                                         '{{ municipio.nombre }}',
@@ -134,18 +135,15 @@
 
             // Relleno previo en primera carga
             let depa_seleccionado = lista_departamentos.options[lista_departamentos.selectedIndex].text;
-            let muni_persona =
-                '{{ persona.municipio_de_nacimiento }}'
+            let muni_persona = '{{ persona.municipio_de_nacimiento.nombre }}'
             for (let depa in names_dep) {
                 if (depa === depa_seleccionado) {
                     let valores = names_dep[depa];
 
                     for (let i = 0; i < valores.length; i++) {
-
                         let municipio = valores[i]
                         let option = document.createElement('option');
                         option.value = municipio[0]
-
                         option.text = municipio[1]
                         if (muni_persona === municipio[1]) {
                             option.selected = true
