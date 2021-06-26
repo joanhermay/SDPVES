@@ -76,6 +76,7 @@
                     <label for="fecha-nacimiento">Fecha de nacimiento</label>
                     <input type="date" class="form-control" id="fecha-nacimiento"
                            name="fecha-nacimiento"
+                           value="{{ persona.fecha_de_nacimiento|safe }}"
                            required>
                     <div class="invalid-feedback">
                         La fecha es invalida o el campo está vacío.
