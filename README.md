@@ -52,7 +52,7 @@
 * Clone este repositorio. Esto creará la carpeta SDPVES en la ruta donde ejecutó el comando de clonación.
 
 
-* Entre a la carpeta SDPVES y luego entre al entorno virtual `sdpves` ejecutando el comando `workon sdpves`.
+* Entre a la carpeta SDPVES.
 
 
 * Ejecute `setprojectdir .`. Esto es para hacer que cada vez que quiera entrar al entorno virtual `sdpves`, lo dirija
@@ -131,12 +131,15 @@
 * Abra su navegador y coloque la dirección `127.0.0.1:8000` y verá el proyecto andando. A partir de aquí puede continuar
   libremente con el desarrollo.
 
-Si quiere abrir el administrador de Django, abra: `127.0.0.1:8000/admin` e ingrese las credenciales creadas
-anteriormente.
+### El administrador del sistema SDPVES
+Para trabajar como el administrador del sistema SDPVES, presione el botón: `INICIAR SESIÓN` e ingrese las credenciales `admin` y `admin`.
+Esta ventana es una forma más amigable que el administrador propio de Django dado que se hicieron ciertas modificaciones a favor de un mejor experiencia de uso.  
 
-Si quiere trabajar como el usuario administrador del sistema SDPVES, presione el botón: `INICIAR SESIÓN` e ingrese las
-mismas credenciales. Esta ventana es una forma más amigable que el administrador propio de Django dado que se hicieron
-ciertas modificaciones a favor de un mejor experiencia de uso.
+Esta presentación del panel de administración se limita a lo usado en el proyecto exclusivamente, es decir, no puede administrar más
+cosas de otros modulos. Para ello, debe volver a habilitar el panel de administración de Django, descomentandolo en `urlpatterns`,
+en el archivo `urls,py` del proyecto `sdpves`. Una vez finalizada las acciones que requieran usar este panel de administración durante
+su desarrollo, procure deshabilitarlo nuevamente antes de subir sus cambios.
+
 
 ## Desarrollo
 
