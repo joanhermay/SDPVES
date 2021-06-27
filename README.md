@@ -40,7 +40,7 @@
 
 
 * Abra un terminal y cree el entorno virtual llamado `sdpves` (o el nombre que prefiera) con el
-  comando`mkvirtualenv sdpves`.
+  comando `mkvirtualenv sdpves`.
 
 
 * Si el entorno existe, bórrela y créela de nuevo.

@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap-5.0.1-dist/css/bootstrap.min.css' %}">
     <script src="{% static 'bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js' %}"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -17,7 +16,7 @@
 
     <title>
         {% if user.is_authenticated %}
-            SDPVES - {{user.username|upper}}
+            SDPVES - Administrador
         {% else %}
             SDPVES
         {% endif %}
@@ -27,7 +26,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'principal' %}">
             <img
@@ -55,13 +54,14 @@
                             datos</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown"
+                           role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Usuario {{ user.username }}
+                            {{ user.username }}
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li class="">
-                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                <a class="dropdown-item " href="{% url 'logout' %}">Cerrar sesión</a>
                             </li>
                         </ul>
                     </li>
@@ -76,6 +76,7 @@
         </div>
     </div>
 </nav>
+
 <section>
     {% block content %}
     {% endblock %}
@@ -84,11 +85,8 @@
 <div class="bg-light text-muted">
     <section class="">
         <div class="container-fluid text-md-start mt-5">
-            <!-- Grid row -->
             <div class="row mt-3">
-                <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 p-1" style="text-align:justify">
-                    <!-- Content -->
                     <h3 class="text-uppercase fw-bold mb-4">
                         <i class="fas fa-gem me-3">SDPVES</i>
                     </h3>
@@ -100,9 +98,6 @@
                         municipio.
                     </p>
                 </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 p-1">
                     <!-- Links -->
                     <h4 class="text-center text-uppercase fw-bold mb-4">
@@ -124,21 +119,16 @@
                         <a href="mailto:hm19065@ues.edu.sv">Josué Andrés Hernández Martínez</a>
                         <br>
                         <a href="mailto:tr19005@ues.edu.sv">Marck Donovan Tobar Rodríguez</a>
-
                     </p>
-
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Copyright -->
     <div class="text-center p-4 bg-dark" style="background-color: rgba(0, 0, 0, 0.05);">
         © Copyright 2021
         <br>
         Josué Andrés Hernández Martínez
     </div>
-    <!-- Copyright -->
 </div>
 </body>
 </html>

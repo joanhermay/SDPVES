@@ -1,8 +1,9 @@
 {% extends 'vacunacion/base.html' %}
+{% load static %}
 {% block content %}
-    <div class="container-fluid justify-content-center align-content-center p-5">
-        <h1 class="text-center">PERSONAS VACUNADAS REGISTRADAS</h1>
-        <div class="row justify-content-end">
+    <div class="container justify-content-center align-content-center">
+        <h1 class="text-center p-3">PERSONAS VACUNADAS REGISTRADAS</h1>
+        <div class="row justify-content-end p-1">
             <div class="col-2 btn-group text-lg-center">
                 <button class="btn btn-primary text-center justify-content-center"
                         onclick="location.href='{% url 'registro' %}'">
@@ -12,47 +13,61 @@
         </div>
         <br>
         <br>
-        <div>
-            
-        </div>
-        <table class="table table-responsive table-striped container-fluid" style="display: block; height: 350px; overflow: -moz-scrollbars-horizontal">
-                <thead class="table-dark">
-                <tr>
-                    <td scope="col">ID</td>
-                    <td scope="col">Nombres</td>
-                    <td scope="col">Apellidos</td>
-                    <td scope="col">DUI</td>
-                    <td scope="col">Departamento de nacimiento</td>
-                    <td scope="col">Municipio de nacimiento</td>
-                    <td scope="col">Fecha de nacimiento</td>
-                    <td scope="row"></td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for persona in personas %}
+        <div class="row justify-content-sm-around justify-content-center justify-content-lg-center">
+            {% if personas.count > 0 %}
+                <table class="table table-responsive table-hover d-block w-auto"
+                       style="height: 375px; overflow: auto; overflow-style: marquee-block">
+                    <thead class="table-dark">
                     <tr>
-                        <th scope="row">{{ persona.id }}</th>
-                        <td scope="row">{{ persona.nombres }}</td>
-                        <td scope="row">{{ persona.apellidos }}</td>
-                        <td scope="row">{{ persona.dui }}</td>
-                        <td scope="row">{{ persona.departamento_de_nacimiento.nombre }}</td>
-                        <td scope="row">{{ persona.municipio_de_nacimiento.nombre }}</td>
-                        <td scope="row">{{ persona.fecha_de_nacimiento }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-dark btn-sm" type="button"
-                                        onclick="location.href='{% url 'modificar-persona-vacunada' id_persona=persona.id %}'">
-                                    Editar
-                                </button>
-                                <button class="btn btn-danger btn-sm btn" type="button"
-                                        onclick="location.href='{% url 'eliminar-persona-vacunada' id_persona=persona.id %}'">
-                                    Eliminar
-                                </button>
-                            </div>
-                        </td>
+                        <td scope="col">ID</td>
+                        <td scope="col">Nombres</td>
+                        <td scope="col">Apellidos</td>
+                        <td scope="col">DUI</td>
+                        <td scope="col">Departamento de nacimiento</td>
+                        <td scope="col">Municipio de nacimiento</td>
+                        <td scope="col">Fecha de nacimiento</td>
+                        <td scope="row"></td>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for persona in personas %}
+                        <tr>
+                            <th scope="row">{{ persona.id }}</th>
+                            <td scope="row">{{ persona.nombres }}</td>
+                            <td scope="row">{{ persona.apellidos }}</td>
+                            <td scope="row">{{ persona.dui }}</td>
+                            <td scope="row">{{ persona.departamento_de_nacimiento.nombre }}</td>
+                            <td scope="row">{{ persona.municipio_de_nacimiento.nombre }}</td>
+                            <td scope="row">{{ persona.fecha_de_nacimiento }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-dark btn-sm" type="button"
+                                            onclick="location.href='{% url 'modificar-persona-vacunada' id_persona=persona.id %}'">
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn" type="button"
+                                            onclick="location.href='{% url 'eliminar-persona-vacunada' id_persona=persona.id %}'">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h1 class="text-center">NO HAY REGISTROS</h1>
+            {% endif %}
+        </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": false
+            });
+        });
+    </script>
+
 {% endblock %}

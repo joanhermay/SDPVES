@@ -26,11 +26,8 @@
                     <label for="apellidos">Apellidos</label>
                     <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos"
                            pattern="[A-Za-z]{1-100}" required>
-                    <div class="valid-feedback">
-                        El campo está vacío o supera los 100 caracteres.
-                    </div>
                     <div class="invalid-feedback">
-                        El campo está vacío o supera los 100 caracteres.
+                        El campo no puede estar vacío o superar los 100 caracteres.
                     </div>
                 </div>
             </div>
@@ -62,7 +59,7 @@
                            pattern="[0-9]{8}-[0-9]{1}"
                            required>
                     <div class="invalid-feedback">
-                        El campo no puede contener letras o estar vacío.
+                        El campo no puede estar vacío.
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -71,7 +68,7 @@
                            name="fecha-nacimiento"
                            required>
                     <div class="invalid-feedback">
-                        La fecha es invalida o el campo está vacío.
+                        El campo está vacío o la fecha ingresada es inválida.
                     </div>
                 </div>
             </div>

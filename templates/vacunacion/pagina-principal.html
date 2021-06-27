@@ -1,6 +1,6 @@
 {% extends 'vacunacion/base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block head %}
     <script src="{% static 'higthcharts-9.1.2/highcharts.js' %}"></script>
     <script src="{% static 'higthcharts-9.1.2/modules/data.js' %} "></script>
@@ -11,24 +11,38 @@
     <script src="{% static 'higthcharts-9.1.2/themes/grid-light.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <div class="container-fluid p-lg-5 justify-content-center align-content-center">
+    <div class="container-fluid justify-content-center align-content-center p-4">
         <div>
-            <figure class="highcharts-figure">
-                <div class="container-fluid" id="grafico"></div>
-            </figure>
+            <div>
+                <figure class="highcharts-figure">
+                    <div class="container-fluid" id="grafico"></div>
+                </figure>
+            </div>
         </div>
+    </div>
+    <div class="container-fluid text-center">
+        {% if personas.count == 0 %}
+            <div class="p-4">
+                <h2>NO HAY DATOS</h2>
+            </div>
+        {% else %}
+            <div class="p-1">
+                <h2>{{ personas.count|intcomma }}</h2>
+                <h4>TOTAL NACIONAL</h4>
+            </div>
+        {% endif %}
     </div>
     <script type="application/javascript">
         // Create the chart
         let datos_departametos = {
             {% for key, value in total_por_depas.items %}
-                '{{ key }}': {{ value }},
+                '{{ key }}': {{ value|intcomma }},
             {% endfor %}
         }
 
         let datos_municipios = {
             {% for key, value in total_por_munis.items %}
-                '{{ key }}': {{ value }},
+                '{{ key }}': {{ value|intcomma }},
             {% endfor %}
         }
         Highcharts.chart('grafico', {
@@ -36,10 +50,16 @@
                 type: 'column'
             },
             title: {
-                text: 'CANTIDAD DE PERSONAS VACUNADAS',
+                text: 'CANTIDAD DE PERSONAS VACUNADAS - 2021',
+                style: {
+                    color: "#000000"
+                }
             },
             subtitle: {
                 text: 'Fuente: SDPVES',
+                style: {
+                    color: "#000000"
+                }
             },
             accessibility: {
                 announceNewData: {
@@ -58,7 +78,7 @@
                 }
             },
             legend: {
-                enabled: false
+                enabled: false,
             },
             plotOptions: {
                 series: {
@@ -67,9 +87,8 @@
                         enabled: true,
                         format: '{point.y:f}',
                     }
-                }
+                },
             },
-
             tooltip: {
                 headerFormat: '<span style="font-size:14px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> en total<br/>'
@@ -108,8 +127,8 @@
                             ]
                         },
                     {% endfor %}
-                ]
-            }
+                ],
+            },
         });
     </script>
 {% endblock %}
