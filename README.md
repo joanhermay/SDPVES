@@ -150,6 +150,11 @@ su desarrollo, procure deshabilitarlo nuevamente antes de subir sus cambios.
   inclusión o eliminación en el commit que vea necesario. Pero, si una librería no se usa, pero tampoco se elimina, en
   el commit correspondiente detalle el por qué se ha ignorado en el código.
 
-# Copyright 2021
+# Copyright
 
-* _Josué Andrés Hernández Martínez_
+Copyright 2021 _Josué Andrés Hernández Martínez_. All rights reserved.
+
+# Licencia
+
+* La totalidad del código NO ESTÁ bajo ninguna licencia de software libre ni bajo dominio
+  público. La totalidad del código puede/debe considerarse como: Propietario.
