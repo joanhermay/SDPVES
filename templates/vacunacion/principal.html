@@ -9,17 +9,18 @@
     <script src="{% static 'higthcharts-9.1.2/modules/exporting.js' %}"></script>
     <script src="{% static 'higthcharts-9.1.2/modules/export-data.js' %}"></script>
     <script src="{% static 'higthcharts-9.1.2/modules/accessibility.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/themes/grid-light.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <figure class="highcharts-figure">
-            <div id="container"></div>
+    <div class="container-fluid">
+        <figure class="container-fluid highcharts-figure">
+            <div id="grafico"></div>
         </figure>
     </div>
     <script type="application/javascript">
         // Create the chart
-        Highcharts.chart('container', {
+        Highcharts.chart('grafico', {
             chart: {
                 type: 'column'
             },
@@ -50,7 +51,7 @@
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:f}'
+                        format: '{point.y:f}',
                     }
                 }
             },

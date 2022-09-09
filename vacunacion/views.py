@@ -28,9 +28,9 @@ def mostrar_departamentos(request):
     return render(request, 'vacunacion/mostrar_departamentos.html', context)
 
 
-def registrar_a_persona_vacunada(request):
+def formulario_registrar_persona_vacunada(request):
     context = {
         'departamentos': Departamento.objects.all(),
         'municipios': Municipio.objects.all()
     }
-    return render(request, 'vacunacion/registrar_a_persona_vacunada.html', context)
+    return render(request, 'vacunacion/formulario_registrar_persona_vacunada.html', context)
