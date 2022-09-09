@@ -1,14 +1,13 @@
 {% extends 'vacunacion/base.html' %}
 {% block content %}
-    <table class="table table-hover table-bordered">
-        <thead class="thead-light">
+    <h1>Departamentos de El Salvador</h1>
+    <table class="table">
         <tr>
             <td scope="col">ID</td>
-            <td scope="col">ID Departamento</td>
+            <td scope="col">Código de departamento</td>
             <td scope="col">Nombre</td>
             <td scope="col">Municipios</td>
         </tr>
-        </thead>
         <tbody>
         {% for depas in departamentos %}
             <tr>

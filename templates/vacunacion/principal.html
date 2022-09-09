@@ -1,7 +1,105 @@
 {% extends 'vacunacion/base.html' %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+        <title>SDPVES</title>
+    {% endblock %}
+</head>
+<body>
 {% block content %}
-    <h1>SDPVES</h1>
-    <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button" onclick="location.href='{% url 'mostrar_departamentos' %}'">Mostrar departamentos</button>
+    <div>
+        <figure class="highcharts-figure bt" style="align-self: auto">
+            <div id="container"></div>
+
+        </figure>
     </div>
+    <script type="application/javascript">
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'Cantidad de vacunados en El Salvador',
+                style: {
+                    fontSize: "40px",
+                }
+            },
+            subtitle: {
+                text: 'Fuente: SDPVES',
+                style: {
+                    fontSize: "20px",
+                }
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Cantidad de personas vacunadas'
+                }
+            },
+
+            xAxis: {
+                categories: [
+                    {% for nombre in nombres_depas %}
+                        '{{ nombre }}',
+                    {% endfor %}
+                ],
+                title: {
+                    text: 'Departamentos'
+                }
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                enabled: false
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                },
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+
+            series: [
+                {
+                    name: '2021',
+                    data: {{ cantidades }}
+                }
+            ],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    </script>
 {% endblock %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
