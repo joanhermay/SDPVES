@@ -6,13 +6,13 @@ from . import views
 app_name: 'vacunacion'
 
 urlpatterns = [
-    path('', views.principal, name="pagina-principal"),
-    path('administrar_personas', views.administrador, name='administrar-personas-vacunadas'),
-    path('registrar_personas', views.formulario_registrar_persona_vacunada,
+    path('', views.principal, name="principal"),
+    path('administrador/gestion/', views.listar_personas_vacunadas, name='listar-personas-vacunadas'),
+    path('administrador/registrar/', views.registrar_persona_vacunada,
          name="registro"),
-    path('modificar_persona/<int:id_persona>', views.modificar_persona, name='modificar-persona-vacunada'),
+    path('administrador/modificar/<int:id_persona>/', views.modificar_persona_vacunada,
+         name='modificar-persona-vacunada'),
 
-    path('eliminar_persona/<int:id_persona>', views.eliminar_persona, name='eliminar-persona-vacunada'),
-    # path('departamentos', views.mostrar_departamentos, name='departamentos'),
-    # path('municipio/<str:codigo_depa>', views.mostrar_municipios, name='municipios'),
+    path('administrador/eliminar/<int:id_persona>#/', views.eliminar_persona_vacunada,
+         name='eliminar-persona-vacunada'),
 ]

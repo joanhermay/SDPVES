@@ -1,0 +1,58 @@
+{% extends 'vacunacion/base.html' %}
+{% block content %}
+    <div class="container-fluid justify-content-center align-content-center p-5">
+        <h1 class="text-center">PERSONAS VACUNADAS REGISTRADAS</h1>
+        <div class="row justify-content-end">
+            <div class="col-2 btn-group text-lg-center">
+                <button class="btn btn-primary text-center justify-content-center"
+                        onclick="location.href='{% url 'registro' %}'">
+                    AGREGAR
+                </button>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div>
+            
+        </div>
+        <table class="table table-responsive table-striped container-fluid" style="display: block; height: 350px; overflow: -moz-scrollbars-horizontal">
+                <thead class="table-dark">
+                <tr>
+                    <td scope="col">ID</td>
+                    <td scope="col">Nombres</td>
+                    <td scope="col">Apellidos</td>
+                    <td scope="col">DUI</td>
+                    <td scope="col">Departamento de nacimiento</td>
+                    <td scope="col">Municipio de nacimiento</td>
+                    <td scope="col">Fecha de nacimiento</td>
+                    <td scope="row"></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for persona in personas %}
+                    <tr>
+                        <th scope="row">{{ persona.id }}</th>
+                        <td scope="row">{{ persona.nombres }}</td>
+                        <td scope="row">{{ persona.apellidos }}</td>
+                        <td scope="row">{{ persona.dui }}</td>
+                        <td scope="row">{{ persona.departamento_de_nacimiento.nombre }}</td>
+                        <td scope="row">{{ persona.municipio_de_nacimiento.nombre }}</td>
+                        <td scope="row">{{ persona.fecha_de_nacimiento }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-dark btn-sm" type="button"
+                                        onclick="location.href='{% url 'modificar-persona-vacunada' id_persona=persona.id %}'">
+                                    Editar
+                                </button>
+                                <button class="btn btn-danger btn-sm btn" type="button"
+                                        onclick="location.href='{% url 'eliminar-persona-vacunada' id_persona=persona.id %}'">
+                                    Eliminar
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+{% endblock %}

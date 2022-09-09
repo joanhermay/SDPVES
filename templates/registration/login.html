@@ -1,0 +1,41 @@
+{% extends 'vacunacion/base.html' %}
+{% block content %}
+    <div class="p-lg-5 align-bottom">
+        <h3 class="text-center">INICIO DE SESIÓN</h3>
+        <form class="form text-center" action="" method="post">
+            {% csrf_token %}
+            <div>
+                <label>Usuario</label>
+                <br>
+                {{ form.username }}
+            </div>
+            <br>
+            <div>
+                <label>Contraseña</label>
+                <br>
+                {{ form.password }}
+            </div>
+            <br>
+            <div class="align-content-center btn-group-lg ">
+                <button type="button" class="btn btn-lg btn-secondary" onclick="location.href='{% url 'principal' %}'">
+                    Regresar
+                </button>
+                <button class="btn btn-lg btn-success ">Acceder</button>
+            </div>
+            {% if form.errors %}
+                <p>
+                <div class="alert alert-danger" role="alert" id="alerta">
+                    Por favor, introduzca un nombre de usuario y clave correctos.
+                    <br>
+                    Observe que ambos campos pueden ser
+                    sensibles a mayúsculas.
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+
+
+
+
+

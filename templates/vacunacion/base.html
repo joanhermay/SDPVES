@@ -8,116 +8,137 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static "bootstrap-5.0.1-dist/css/bootstrap.min.css" %}">
     <script src="{% static 'bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js' %}"></script>
-    <title>SDPVES</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <link href="{% static 'estilos-sdpves.css' %}" rel="stylesheet">
+
+    <title>
+        {% if user.is_authenticated %}
+            SDPVES - {{user.username|upper}}
+        {% else %}
+            SDPVES
+        {% endif %}
+    </title>
     {% block head %}
     {% endblock %}
+
 </head>
-<body class="bg-light">
-<!-- Menú de navegación-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid col">
-        <!-- Toggle button -->
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'principal' %}">
+            <img
+                    src="{% static 'logo_ues.png' %}"
+                    height="25"
+                    alt=""
+                    loading="lazy"
+            />
+            SDPVES
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Navbar brand -->
-            <a href='{% url 'pagina-principal' %}'>
-                <img
-                        src="{% static 'minerva2.png' %}"
-                        height="50"
-                        alt=""
-                        loading="lazy"
-                />
-            </a>
-            <!-- Left links -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Página principal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'administrar-personas-vacunadas' %}">Administrador</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link me-2" aria-current="page"
+                           href="{% url 'principal' %}">Pagina principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-2" aria-current="page"
+                           href="{% url 'listar-personas-vacunadas' %}">Gestionar
+                            datos</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuario {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="">
+                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <button class="btn btn-primary align-self-center" onclick="location.href='{% url 'login' %}'">
+                            Iniciar sesión
+                        </button>
+                    </li>
+                {% endif %}
             </ul>
-            <!-- Left links -->
         </div>
     </div>
 </nav>
+<section>
+    {% block content %}
+    {% endblock %}
+</section>
 
-{% block content %}
-{% endblock %}
-
-</body>
-<!-- Footer -->
-<footer class="text-lg-center bg-light text-muted">
-    <!-- Section: Links  -->
-    <section class="container-fluid">
-        <div class="container-fluid text-center text-md-start mt-5">
+<div class="bg-light text-muted">
+    <section class="">
+        <div class="container-fluid text-md-start mt-5">
             <!-- Grid row -->
             <div class="row mt-3">
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 p-1" style="text-align:justify">
                     <!-- Content -->
-                    <h2 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"> SDPVES</i>
-                    </h2>
+                    <h3 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3">SDPVES</i>
+                    </h3>
                     <p>
                         Sistema para la Determinación de Personas Vacunadas en El Salvador.
-                        <br>
-                        <br>
+                    </p>
+                    <p>
                         Muestra los datos de las personas vacunadas por COVID-19 en El Salvador, por departamento y
                         municipio.
                     </p>
                 </div>
                 <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        Contáctenos
-                    </h6>
-                    <div>
-                        <div>
-                            <a href='{% url 'pagina-principal' %}'>
-                                <img
-                                        src="{% static 'minerva2.png' %}"
-                                        height="50"
-                                        alt="UES Logo"
-                                        loading="lazy"
-                                />
-                            </a>
-                        </div>
-                        <div>
-                            <i class="fas fa-home me-3">Estudiantes de la Universidad de El Salvador
-                            </i>
-                            <br>
-                            <a href="hm19065@ues.edu.sv">Josué Andrés Hernández Martínez</a>
-                            <br>
-                            <a href="tr19005@ues.edu.sv">Marck Donovan Tobar Rodriguez</a>
-                            <br>
-                        </div>
-                    </div>
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 p-1">
+                    <!-- Links -->
+                    <h4 class="text-center text-uppercase fw-bold mb-4">
+                        CONTACTO
+                    </h4>
+                    <p class="text-center">
+                        <a href='{% url 'principal' %}'>
+                            <img
+                                    src="{% static 'logo_ues.png' %}"
+                                    height="50"
+                                    alt="UES Logo"
+                                    loading="lazy"
+                            />
+                        </a>
+                        <br>
+                        <i class="">Estudiantes de la Universidad de El Salvador</i>
+                        <br>
+                        <br>
+                        <a href="mailto:hm19065@ues.edu.sv">Josué Andrés Hernández Martínez</a>
+                        <br>
+                        <a href="mailto:tr19005@ues.edu.sv">Marck Donovan Tobar Rodríguez</a>
+
+                    </p>
 
                 </div>
             </div>
         </div>
     </section>
-    <!-- Section: Links  -->
+
     <!-- Copyright -->
-    <div class="text-center p-lg-2 bg-dark" style="background-color: rgba(0, 0, 0, 0.05);">
-        <h5>© Copyright 2021</h5>
-        <h6 class="text-center">Josué Andrés Hernández Martínez<br>Marck Donovan Tobar Rodriguez </h6>
+    <div class="text-center p-4 bg-dark" style="background-color: rgba(0, 0, 0, 0.05);">
+        © Copyright 2021
+        <br>
+        Josué Andrés Hernández Martínez
     </div>
     <!-- Copyright -->
-</footer>
-<!-- Footer -->
+</div>
+</body>
 </html>

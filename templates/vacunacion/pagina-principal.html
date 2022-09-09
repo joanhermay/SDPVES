@@ -8,14 +8,15 @@
     <script src="{% static 'higthcharts-9.1.2/modules/exporting.js' %}"></script>
     <script src="{% static 'higthcharts-9.1.2/modules/export-data.js' %}"></script>
     <script src="{% static 'higthcharts-9.1.2/modules/accessibility.js' %}"></script>
-    <script src="{% static 'higthcharts-9.1.2/themes/grid-light.src.js' %}"></script>
+    <script src="{% static 'higthcharts-9.1.2/themes/grid-light.js' %}"></script>
 {% endblock %}
-
 {% block content %}
-    <div class="container-fluid">
-        <figure class="highcharts-figure">
-            <div class="container-sm" id="grafico"></div>
-        </figure>
+    <div class="container-fluid p-lg-5 justify-content-center align-content-center">
+        <div>
+            <figure class="highcharts-figure">
+                <div class="container-fluid" id="grafico"></div>
+            </figure>
+        </div>
     </div>
     <script type="application/javascript">
         // Create the chart
@@ -35,10 +36,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Cantidad de personas vacunadas - 2021',
+                text: 'CANTIDAD DE PERSONAS VACUNADAS',
             },
             subtitle: {
-                text: 'Fuente: SDPVES'
+                text: 'Fuente: SDPVES',
             },
             accessibility: {
                 announceNewData: {
@@ -46,11 +47,14 @@
                 }
             },
             xAxis: {
+                title: {
+                    text: 'DEPARTAMENTOS',
+                },
                 type: 'category'
             },
             yAxis: {
                 title: {
-                    text: 'Cantidad de personas vacunadas',
+                    text: 'PERSONAS VACUNADAS',
                 }
             },
             legend: {
@@ -67,7 +71,7 @@
             },
 
             tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                headerFormat: '<span style="font-size:14px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> en total<br/>'
             },
             series: [
@@ -80,7 +84,6 @@
                                 name: "{{ depa.nombre }}",
                                 drilldown: "{{ depa.nombre }}", // Nombre que recibe la subcolumna para identificar esta
                                                                 // en el javascript de abajo
-                                //y: Math.floor(Math.random() * 101), // Aquí irá la suma total de personas en el departamento
                                 y: datos_departametos['{{ depa.nombre }}']
                             },
                         {% endfor %}
@@ -107,7 +110,6 @@
                     {% endfor %}
                 ]
             }
-        })
-        ;
+        });
     </script>
 {% endblock %}

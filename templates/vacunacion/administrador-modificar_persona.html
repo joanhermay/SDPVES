@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center">MODIFICAR DATOS DE PERSONA VACUNADA</h1>
-    <div class="container">
+    <div class="container container p-4">
+        <h1 style="text-align: center">MODIFICAR DATOS DE PERSONA VACUNADA</h1>
         <br>
         <form action="" class="needs-validation" id="formulario" novalidate method="post">
             {% csrf_token %}
@@ -38,7 +38,7 @@
 
             <div class="row">
                 <div class="col">
-                    <label for="departamentos">Departamento</label>
+                    <label for="departamentos">Departamento de nacimiento</label>
                     <select class="form-control" id="departamentos" name="departamento" required>
                         {% for departamento in departamentos %}
                             {% if departamento.id == persona.departamento_de_nacimiento.id %}
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="municipios">Municipio</label>
+                    <label for="municipios">Municipio de nacimiento</label>
                     <select class="form-control" id="municipios" name="municipio">
                     </select>
                     <div class="invalid-feedback">
@@ -85,15 +85,10 @@
             <br>
             <br>
             <div class="col-md-12 text-center">
-                <button type="reset" class="btn btn-secondary" id="cancelar" name="limpiar" value="Limpiar">
-                    Limpiar
-                </button>
-
                 <button type="reset" class="btn btn-secondary" id="cancelar" name="volver" value="volver"
-                        onclick="location.href='{% url 'administrar-personas-vacunadas' %}'">
+                        onclick="location.href='{% url 'listar-personas-vacunadas' %}'">
                     Volver
                 </button>
-
                 <button type="submit" class="btn btn-primary" id="guardar" name="modificar" value="guardar">Guardar
                     cambios
                 </button>

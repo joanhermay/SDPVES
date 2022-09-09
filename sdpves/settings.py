@@ -51,6 +51,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sdpves.urls'
 
+LOGOUT_REDIRECT_URL = 'principal'
+LOGIN_REDIRECT_URL = 'listar-personas-vacunadas'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
