@@ -1,0 +1,20 @@
+{% extends 'vacunacion/base.html' %}
+{% block content %}
+    <h1>Municipios del departamento de {{  nombre_dep }}</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <td scope="col">ID</td>
+            <td scope="col">Nombre</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for municipio in munis %}
+            <tr>
+                <th scope="row">{{ municipio.id }}</th>
+                <td scope="row">{{ municipio.nombre }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

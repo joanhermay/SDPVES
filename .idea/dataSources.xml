@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="sdpves@localhost" uuid="bf013f41-2022-4a53-89e2-15a6a01e740f">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://localhost:3306/sdpves</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <time-zone>America/El_Salvador</time-zone>
+    </data-source>
+  </component>
+</project>

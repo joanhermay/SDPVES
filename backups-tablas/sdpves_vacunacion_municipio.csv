@@ -1,0 +1,263 @@
+id,nombre,codigo_departamento_id
+1,Ahuachapán,AH
+2,Apaneca,AH
+3,Atiquizaya,AH
+4,Concepción de Ataco,AH
+5,El Refugio,AH
+6,Guaymango,AH
+7,Jujutla,AH
+8,San Francisco Menéndez,AH
+9,San Lorenzo,AH
+10,San Pedro Puxtla,AH
+11,Tacuba,AH
+12,Turín,AH
+13,Sensuntepeque,CA
+14,Cinquera,CA
+15,Dolores,CA
+16,Guacotecti,CA
+17,Ilobasco,CA
+18,Jutiapa,CA
+19,San Isidro,CA
+20,Tejutepeque,CA
+21,Victoria,CA
+22,Chalatenango,CH
+23,Agua Caliente,CH
+24,Arcatao,CH
+25,Azacualpa,CH
+26,Cancasque,CH
+27,Citalá,CH
+28,Comalapa,CH
+29,Concepción Quezaltepeque,CH
+30,Dulce Nombre de María,CH
+31,El Carrizal,CH
+32,El Paraíso,CH
+33,La Laguna,CH
+34,La Palma,CH
+35,La Reina,CH
+36,Las Flores,CH
+37,Las Vueltas,CH
+38,Nombre de Jesús,CH
+39,Nueva Concepción,CH
+40,Nueva Trinidad,CH
+41,Ojos de Agua,CH
+42,Potonico,CH
+43,San Antonio de la Cruz,CH
+44,San Antonio Los Ranchos,CH
+45,San Fernando,CH
+46,San Francisco Lempa,CH
+47,San Francisco Morazán,CH
+48,San Ignacio,CH
+49,San Isidro Labrador,CH
+50,San Luis del Carmen,CH
+51,San Miguel de Mercedes,CH
+52,San Rafael,CH
+53,Santa Rita,CH
+54,Tejutla,CH
+55,Cojutepeque,CU
+56,Candelaria,CU
+57,El Carmen,CU
+58,El Rosario,CU
+59,Monte San Juan,CU
+60,Oratorio de Concepción,CU
+61,San Bartolomé Perulapía,CU
+62,San Cristóbal,CU
+63,San José Guayabal,CU
+64,San Pedro Perulapán,CU
+65,San Rafael Cedros,CU
+66,San Ramón,CU
+67,Santa Cruz Analquito,CU
+68,Santa Cruz Michapa,CU
+69,Suchitoto,CU
+70,Tenancingo,CU
+71,Santa Tecla,LI
+72,Antiguo Cuscatlán,LI
+73,Chiltiupán,LI
+74,Ciudad Arce,LI
+75,Colón,LI
+76,Comasagua,LI
+77,Huizúcar,LI
+78,Jayaque,LI
+79,Jicalapa,LI
+80,La Libertad,LI
+81,Nuevo Cuscatlán,LI
+82,Quezaltepeque,LI
+83,San Juan Opico,LI
+84,Sacacoyo,LI
+85,San José Villanueva,LI
+86,San Matías,LI
+87,San Pablo Tacachico,LI
+88,Talnique,LI
+89,Tamanique,LI
+90,Teotepeque,LI
+91,Tepecoyo,LI
+92,Zaragoza,LI
+93,San Francisco Gotera,MO
+94,Arambala,MO
+95,Cacaopera,MO
+96,Chilanga,MO
+97,Corinto,MO
+98,Delicias de Concepción,MO
+99,El Divisadero,MO
+100,El Rosario,MO
+101,Gualococti,MO
+102,Guatajiagua,MO
+103,Joateca,MO
+104,Jocoaitique,MO
+105,Jocoro,MO
+106,Lolotiquillo,MO
+107,Meanguera,MO
+108,Osicala,MO
+109,Perquín,MO
+110,San Carlos,MO
+111,San Fernando,MO
+112,San Isidro,MO
+113,San Simón,MO
+114,Sensembra,MO
+115,Sociedad,MO
+116,Torola,MO
+117,Yamabal,MO
+118,Yoloaiquín,MO
+119,Zacatecoluca,PA
+120,Cuyultitán,PA
+121,El Rosario,PA
+122,Jerusalén,PA
+123,Mercedes La Ceiba,PA
+124,Olocuilta,PA
+125,Paraíso de Osorio,PA
+126,San Antonio Masahuat,PA
+127,San Emigdio,PA
+128,San Francisco Chinameca,PA
+129,San Pedro Masahuat,PA
+130,San Juan Nonualco,PA
+131,San Juan Talpa,PA
+132,San Juan Tepezontes,PA
+133,San Luis La Herradura,PA
+134,San Luis Talpa,PA
+135,San Miguel Tepezontes,PA
+136,San Pedro Nonualco,PA
+137,San Rafael Obrajuelo,PA
+138,Santa María Ostuma,PA
+139,Santiago Nonualco,PA
+140,Tapalhuaca,PA
+141,Santa Ana,SA
+142,Candelaria de la Frontera,SA
+143,Chalchuapa,SA
+144,Coatepeque,SA
+145,El Congo,SA
+146,El Porvenir,SA
+147,Masahuat,SA
+148,Metapán,SA
+149,San Antonio Pajonal,SA
+150,San Sebastián Salitrillo,SA
+151,Santa Rosa Guachipilín,SA
+152,Santiago de la Frontera,SA
+153,Texistepeque,SA
+154,San Miguel,SM
+155,Carolina,SM
+156,Chapeltique,SM
+157,Chinameca,SM
+158,Chirilagua,SM
+159,Ciudad Barrios,SM
+160,Comacarán,SM
+161,El Tránsito,SM
+162,Lolotique,SM
+163,Moncagua,SM
+164,Nueva Guadalupe,SM
+165,Nuevo Edén de San Juan,SM
+166,Quelepa,SM
+167,San Antonio,SM
+168,San Gerardo,SM
+169,San Jorge,SM
+170,San Luis de la Reina,SM
+171,San Rafael Oriente,SM
+172,Sesori,SM
+173,Uluazapa,SM
+174,Sonsonate,SO
+175,Acajutla,SO
+176,Armenia,SO
+177,Caluco,SO
+178,Cuisnahuat,SO
+179,Izalco,SO
+180,Juayúa,SO
+181,Nahuizalco,SO
+182,Nahulingo,SO
+183,Salcoatitán,SO
+184,San Antonio del Monte,SO
+185,San Julián,SO
+186,Santa Catarina Masahuat,SO
+187,Santa Isabel Ishuatán,SO
+188,Santo Domingo de Guzmán,SO
+189,Sonzacate,SO
+190,San Salvador,SS
+191,Aguilares,SS
+192,Apopa,SS
+193,Ayutuxtepeque,SS
+194,Ciudad Delgado,SS
+195,Cuscatancingo,SS
+196,El Paisnal,SS
+197,Guazapa,SS
+198,Ilopango,SS
+199,Mejicanos,SS
+200,Nejapa,SS
+201,Panchimalco,SS
+202,Rosario de Mora,SS
+203,San Marcos,SS
+204,San Martín,SS
+205,Santiago Texacuangos,SS
+206,Santo Tomás,SS
+207,Soyapango,SS
+208,Tonacatepeque,SS
+209,San Vicente,SV
+210,Apastepeque,SV
+211,Guadalupe,SV
+212,San Cayetano Istepeque,SV
+213,San Esteban Catarina,SV
+214,San Ildefonso,SV
+215,San Lorenzo,SV
+216,San Sebastián,SV
+217,Santa Clara,SV
+218,Santo Domingo,SV
+219,Tecoluca,SV
+220,Tepetitán,SV
+221,Verapaz,SV
+222,La Unión,UN
+223,Anamorós,UN
+224,Bolívar,UN
+225,Concepción de Oriente,UN
+226,Conchagua,UN
+227,El Carmen,UN
+228,El Sauce,UN
+229,Intipucá,UN
+230,Lislique,UN
+231,Meanguera del Golfo,UN
+232,Nueva Esparta,UN
+233,Pasaquina,UN
+234,Polorós,UN
+235,San Alejo,UN
+236,San José,UN
+237,Santa Rosa de Lima,UN
+238,Yayantique,UN
+239,Yucuaiquín,UN
+240,Usulután,US
+241,Alegría,US
+242,Berlín,US
+243,California,US
+244,Concepción Batres,US
+245,El Triunfo,US
+246,Ereguayquín,US
+247,Estanzuelas,US
+248,Jiquilisco,US
+249,Jucuapa,US
+250,Jucuarán,US
+251,Mercedes Umaña,US
+252,Nueva Granada,US
+253,Ozatlán,US
+254,Puerto El Triunfo,US
+255,San Agustín,US
+256,San Buenaventura,US
+257,San Dionisio,US
+258,San Francisco Javier,US
+259,Santa Elena,US
+260,Santa María,US
+261,Santiago de María,US
+262,Tecapán,US
